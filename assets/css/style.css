@@ -3,3 +3,18 @@
     width: 200px;
     background-color: red;
 }
+
+.initialButtons{
+    height: 30px;
+    background-color: darkblue;
+    border-color: white;
+    font-size: 18px;
+    color:white;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.initialButtons:hover{
+    background-color: darkgreen;
+
+}
