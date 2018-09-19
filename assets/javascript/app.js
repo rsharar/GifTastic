@@ -26,13 +26,19 @@ var artistName;
 var developerKey = 'U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV'
 
 // variable to store userInput from form
-var userInput;
+var userInput = 'tupac'
 
 // array to hold initial sarch terms to create buttons upon init
-var initialBtns = ['kendrick-lamar','tom-petty','prince','tupac','bob-marley'];
+var initialBtns = ['kendrick+lamar','tom+petty','prince','tupac','bob+marley'];
  
 // global variable selector for artistImage
 var artistImage;
+
+// global variable for imageURL from GIPHY
+var imageURL;
+
+// global variable newDiv
+var newDiv;
 
 // --------------------------- FUNCTIONS ----------------------------//
 function initialButtons(){
@@ -41,7 +47,7 @@ function initialButtons(){
         console.log(initialBtns[i])
 
         //var newDiv
-        var newDiv = $("<button class = 'initialButtons' type = 'button'>" + initialBtns[i] + "</button>")
+        newDiv = $("<button class = 'initialButtons' type = 'button'>" + initialBtns[i] + "</button>")
 
         //generate a button
         $("#artistbuttons").prepend(newDiv).addClass('artistbtn')
@@ -60,31 +66,51 @@ function createNewButton(){
     
 
 
+// generate 10 random GIFs based on click of button
+function generateGIFs(){
+    $("#artistbuttons").on('click',function(){
 
-// Storing our giphy API URL for a random 
-var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV&tag="+ userInput
+    // Storing our giphy API URL for a random 
+    var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV&tag="+ userInput
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-  })
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
 
-  // After the data from the AJAX request comes back
-    .then(function(response) {
+    // After the data from the AJAX request comes back
+        .then(function(response) {
 
-    // Saving the image_original_url property
-      var imageUrl = response.data.image_original_url;
+        // Saving the image_original_url property
+        var imageURL = response.data.image_original_url;
+            console.log(imageURL)
 
-      // Creating and storing an image tag
-      var artistImage = $("<img>");
+        // Creating a div to hold the image and rating divs
+        var gifDiv = $("<div>")
+        
+        // Creating and storing an image tag
+        var artistImage = $("<img>");
 
-      // Setting the catImage src attribute to imageUrl
-      artistImage.attr("src", imageUrl);
-      artistImage.attr("alt", "cat image");
+        // Creating and storing a p tag to hold the rating
+        var p = $("<p>");
 
-      // Prepending the catImage to the images div
-      $("#images").prepend(catImage);
+        // Storing the rating from the GIPHY API in a variable
+        p.html(response.data.rating);
+        artistImage.prepend(p)
+        
+        // Setting the catImage src attribute to imageUrl
+        artistImage.attr("src", imageURL);
+        artistImage.attr("src", imageURL);
+        artistImage.attr("alt", "artist image");
+
+        gifDiv.append(p);
+        gifDiv.append(artistImage);
+
+        // Prepending the artistImage to the images div
+        $("#artistgifs").prepend(gifDiv);
+        });
     });
+}
 
 
 
@@ -94,4 +120,5 @@ $.ajax({
 $(document).ready(function(){
     initialButtons();
     createNewButton();
+    generateGIFs();
 });
