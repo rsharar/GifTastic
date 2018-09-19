@@ -56,10 +56,17 @@ function initialButtons(){
 
 // generate a new button based on the userInput
 function createNewButton(){
-    // on click of 'submit' button (id = 'addbutton') -- NOT WORKING
+    // on click of 'submit' button (id = 'addbutton')
     $("#addbutton").on('click', function(){
-        userInput = $("#type").text();
+        // get val of userInput from form to store in variable
+        userInput = $("#user-input").val();
         console.log(userInput);
+
+        // store val of userInput in variable to populate newBtn
+        var newBtn = $("<button class = 'initialButtons' type = 'button'>" + userInput + "</button>")
+
+        //generate new button
+        $("#artistbuttons").prepend(newBtn).addClass('artistbtn')
     })
     // append new button to div id = 'buttons'
 }
@@ -83,7 +90,6 @@ function generateGIFs(){
                 console.log(response);
                 // Saving the animated gif in variable 
                 var imageURL = response.data[i].images.fixed_height_small.url;
-                console.log(imageURL)
 
                 // Saving the still image in variable
                 var stillURL = response.data[i].images.fixed_height_small_still.url;
@@ -98,8 +104,7 @@ function generateGIFs(){
                 var p = $("<p>");
 
                 // Storing the rating from the GIPHY API in a variable
-                p.text(response.data[i].rating);
-                console.log(p);
+                p.text("Rating: " + response.data[i].rating);
                 artistImage.prepend(p);
 
 
@@ -130,7 +135,7 @@ function animateGIFs(){
     var state = $(this).attr("data-state");
       // If the clicked image's state is still, 
       if (state === "still") {
-          
+
         //update its src attribute to what its data-animate value is.
         $(this).attr("src", $(this).attr("data-animate"));
 
