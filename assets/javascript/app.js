@@ -29,16 +29,16 @@ var developerKey = 'U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV'
 var userInput;
 
 // array to hold initial sarch terms to create buttons upon init
-var initialButtons = ['kendrick-lamar','tom-petty','prince','tupac','bob-marley'];
+var initialBtns = ['kendrick-lamar','tom-petty','prince','tupac','bob-marley'];
 
 // --------------------------- FUNCTIONS ----------------------------//
-function intialButtons(){
+function initialButtons(){
     // for any value in initialButtons
-    for (var i = 0; i < initialButtons.length; i++){
-        console.log(initialButtons[i])
+    for (var i = 0; i < initialBtns.length; i++){
+        console.log(initialBtns[i])
 
         //var newDiv
-        var newDiv = $("<button class = 'initialButtons' type = 'button'>" + initialButtons[i] + "</button>")
+        var newDiv = $("<button class = 'initialButtons' type = 'button'>" + initialBtns[i] + "</button>")
 
         //generate a button
         $("#artistbuttons").prepend(newDiv).addClass('artistbtn')
