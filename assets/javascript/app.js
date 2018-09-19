@@ -26,10 +26,10 @@ var artistName;
 var developerKey = 'U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV'
 
 // variable to store userInput from form
-var userInput = 'tupac'
+var userInput;
 
 // array to hold initial sarch terms to create buttons upon init
-var initialBtns = ['kendrick+lamar','tom+petty','prince','tupac','bob+marley'];
+var artists = ['kendrick+lamar','tom+petty','prince','tupac','bob+marley'];
  
 // global variable selector for artistImage
 var artistImage;
@@ -43,11 +43,11 @@ var newDiv;
 // --------------------------- FUNCTIONS ----------------------------//
 function initialButtons(){
     // for any value in initialButtons
-    for (var i = 0; i < initialBtns.length; i++){
-        console.log(initialBtns[i])
+    for (var i = 0; i < artists.length; i++){
+        console.log(artists[i])
 
         //var newDiv
-        newDiv = $("<button class = 'initialButtons' type = 'button'>" + initialBtns[i] + "</button>")
+        newDiv = $("<button class = 'artists' type = 'button' value =" + artists[i] + ">" + artists[i] + "</button>")
 
         //generate a button
         $("#artistbuttons").prepend(newDiv).addClass('artistbtn')
@@ -62,11 +62,16 @@ function createNewButton(){
         userInput = $("#user-input").val();
         console.log(userInput);
 
+        // push value of userInput into 
+        artists.push(userInput);
+
         // store val of userInput in variable to populate newBtn
-        var newBtn = $("<button class = 'initialButtons' type = 'button'>" + userInput + "</button>")
+        var newBtn = $("<button class = 'artists' type = 'button'>" + userInput + "</button>")
 
         //generate new button
-        $("#artistbuttons").prepend(newBtn).addClass('artistbtn')
+        $("#artistbuttons").append(newBtn).addClass('artistbtn')
+
+
     })
     // append new button to div id = 'buttons'
 }
@@ -74,11 +79,15 @@ function createNewButton(){
 
 // generate 10 random GIFs based on click of button
 function generateGIFs(){
-    $("#artistbuttons").on('click',function(){
+    // on click of any artist button...
+    $(".artists").on('click',function(){
 
+    // empty the current artistgifs
+    $("#artistgifs").empty();
+     
     // Storing our giphy API URL for a random (currently set to 'tupac')
-    var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ userInput
-
+    var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ (this.value)
+        
     $.ajax({
         url: queryURL,
         method: "GET"
