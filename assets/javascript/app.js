@@ -30,6 +30,9 @@ var userInput;
 
 // array to hold initial sarch terms to create buttons upon init
 var initialBtns = ['kendrick-lamar','tom-petty','prince','tupac','bob-marley'];
+ 
+// global variable selector for artistImage
+var artistImage;
 
 // --------------------------- FUNCTIONS ----------------------------//
 function initialButtons(){
@@ -45,8 +48,13 @@ function initialButtons(){
     }
 }
 
+// generate a new button based on the userInput
 function createNewButton(){
-    // on click of 'submit' button (id = 'addbutton')
+    // on click of 'submit' button (id = 'addbutton') -- NOT WORKING
+    $("#addbutton").on('click', function(){
+        userInput = $("#type").text();
+        console.log(userInput);
+    })
     // append new button to div id = 'buttons'
 }
     
@@ -56,7 +64,27 @@ function createNewButton(){
 // Storing our giphy API URL for a random 
 var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV&tag="+ userInput
 
+$.ajax({
+    url: queryURL,
+    method: "GET"
+  })
 
+  // After the data from the AJAX request comes back
+    .then(function(response) {
+
+    // Saving the image_original_url property
+      var imageUrl = response.data.image_original_url;
+
+      // Creating and storing an image tag
+      var artistImage = $("<img>");
+
+      // Setting the catImage src attribute to imageUrl
+      artistImage.attr("src", imageUrl);
+      artistImage.attr("alt", "cat image");
+
+      // Prepending the catImage to the images div
+      $("#images").prepend(catImage);
+    });
 
 
 
@@ -65,4 +93,5 @@ var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=U3BtmZzPNZDs1sxjc8C
 
 $(document).ready(function(){
     initialButtons();
+    createNewButton();
 });
