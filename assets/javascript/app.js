@@ -29,7 +29,7 @@ var developerKey = 'U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV'
 var userInput;
 
 // array to hold initial sarch terms to create buttons upon init
-var artists = ['kendrick+lamar','tom+petty','prince','tupac','bob+marley'];
+var artists = ['kendrick lamar','tom petty','prince','tupac','bob marley'];
  
 // global variable selector for artistImage
 var artistImage;
@@ -47,7 +47,7 @@ function initialButtons(){
         console.log(artists[i])
 
         //var newDiv
-        newDiv = $("<button class = 'artists' type = 'button' value =" + artists[i] + ">" + artists[i] + "</button>")
+        newDiv = $("<button class = 'artists' type = 'button' value ='" + artists[i] + "'>" + artists[i] + "</button>")
 
         //generate a button
         $("#artistbuttons").prepend(newDiv).addClass('artistbtn')
@@ -58,20 +58,21 @@ function initialButtons(){
 function createNewButton(){
     // on click of 'submit' button (id = 'addbutton')
     $("#addbutton").on('click', function(){
+
         // get val of userInput from form to store in variable
         userInput = $("#user-input").val();
-        console.log(userInput);
 
-        // push value of userInput into 
+        // push value of userInput into artists array
         artists.push(userInput);
+        console.log(artists);
 
         // store val of userInput in variable to populate newBtn
         var newBtn = $("<button class = 'artists' type = 'button'>" + userInput + "</button>")
 
-        //generate new button
-        $("#artistbuttons").append(newBtn).addClass('artistbtn')
+        // generate new button    
+        // append new button to div id = 'artistbuttons'
+        $("#artistbuttons").append(newBtn).addClass('artists','artistbtn')        
     })
-    // append new button to div id = 'buttons'
 }
     
 
@@ -84,7 +85,7 @@ function generateGIFs(){
     $("#artistgifs").empty();
 
     // Storing our giphy API URL for a random (currently set to 'tupac')
-    var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ (this.value)
+    var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ encodeURIComponent(this.value)
         
     $.ajax({
         url: queryURL,
