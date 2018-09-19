@@ -65,13 +65,12 @@ function createNewButton(){
 }
     
 
-
 // generate 10 random GIFs based on click of button
 function generateGIFs(){
     $("#artistbuttons").on('click',function(){
 
-    // Storing our giphy API URL for a random 
-    var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV&tag="+ userInput
+    // Storing our giphy API URL for a random (currently set to 'tupac')
+    var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ userInput
 
     $.ajax({
         url: queryURL,
@@ -80,36 +79,70 @@ function generateGIFs(){
 
     // After the data from the AJAX request comes back
         .then(function(response) {
+            for (var i = 0;i < response.data.length; i++){
+                console.log(response);
+                // Saving the animated gif in variable 
+                var imageURL = response.data[i].images.fixed_height_small.url;
+                console.log(imageURL)
 
-        // Saving the image_original_url property
-        var imageURL = response.data.image_original_url;
-            console.log(imageURL)
+                // Saving the still image in variable
+                var stillURL = response.data[i].images.fixed_height_small_still.url;
 
-        // Creating a div to hold the image and rating divs
-        var gifDiv = $("<div>")
-        
-        // Creating and storing an image tag
-        var artistImage = $("<img>");
+                // Creating a div to hold the image and rating divs
+                var gifDiv = $("<div>")
+                
+                // Creating and storing an image tag
+                var artistImage = $("<img>");
 
-        // Creating and storing a p tag to hold the rating
-        var p = $("<p>");
+                // Creating and storing a p tag to hold the rating
+                var p = $("<p>");
 
-        // Storing the rating from the GIPHY API in a variable
-        p.html(response.data.rating);
-        artistImage.prepend(p)
-        
-        // Setting the catImage src attribute to imageUrl
-        artistImage.attr("src", imageURL);
-        artistImage.attr("src", imageURL);
-        artistImage.attr("alt", "artist image");
+                // Storing the rating from the GIPHY API in a variable
+                p.text(response.data[i].rating);
+                console.log(p);
+                artistImage.prepend(p);
 
-        gifDiv.append(p);
-        gifDiv.append(artistImage);
 
-        // Prepending the artistImage to the images div
-        $("#artistgifs").prepend(gifDiv);
+                
+                // Setting the catImage src attribute to imageUrl
+                artistImage.attr("src", imageURL);
+                artistImage.attr("alt", "artist image");
+                artistImage.attr("data-still",stillURL);
+                artistImage.attr("data-animate",imageURL);
+
+
+
+                gifDiv.append(p);
+                gifDiv.append(artistImage).addClass('gif');
+
+                // Prepending the artistImage to the images div
+                $("#artistgifs").prepend(gifDiv);
+            }
+            animateGIFs();
         });
-    });
+})
+}
+
+// function to toggle state between animate/still on click of GIF div 
+function animateGIFs(){
+    $("img").on("click", function(){
+        console.log(this);
+    var state = $(this).attr("data-state");
+      // If the clicked image's state is still, 
+      if (state === "still") {
+          
+        //update its src attribute to what its data-animate value is.
+        $(this).attr("src", $(this).attr("data-animate"));
+
+        // Then, set the image's data-state to animate
+        $(this).attr("data-state", "animate");
+        
+        // Else set src to the data-still value
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+})
 }
 
 
