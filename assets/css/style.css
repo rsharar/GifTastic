@@ -8,11 +8,16 @@
     border-radius: 4px;
 }
 
-.initialButtons:hover{
+.artists:hover{
     background-color: darkgreen;
 
 }
 
 .gif{
     border: 2px solid black;
+}
+
+#addbutton{
+    background-color: #379E90;
+    color: white;
 }

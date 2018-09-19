@@ -70,8 +70,6 @@ function createNewButton(){
 
         //generate new button
         $("#artistbuttons").append(newBtn).addClass('artistbtn')
-
-
     })
     // append new button to div id = 'buttons'
 }
@@ -84,7 +82,7 @@ function generateGIFs(){
 
     // empty the current artistgifs
     $("#artistgifs").empty();
-     
+
     // Storing our giphy API URL for a random (currently set to 'tupac')
     var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ (this.value)
         
