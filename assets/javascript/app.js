@@ -70,6 +70,8 @@ function createNewButton(){
 
         // append new button to div id = 'artistbuttons'
         $("#artistbuttons").append(newBtn)   
+        
+        // clear user-input field in form
         $("#user-input").val("");
 
     })

@@ -14,9 +14,17 @@
 
 .gif{
     /* border: 2px solid black; */
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
 }
 
 #addbutton{
     background-color: #379E90;
     color: white;
+}
+
+
+#artistgifs{
+    position: absolute;
 }
