@@ -1,5 +1,6 @@
 .main-box{
     border: 2px solid black;
+    margin-bottom: 20px;
 }
 
 .artists{
@@ -9,6 +10,7 @@
     font-size: 18px;
     color:white;
     margin-right: 10px;
+    margin-top: 10px;
     border-radius: 4px;
 }
 
@@ -26,6 +28,10 @@
 #addbutton{
     background-color: #379E90;
     color: white;
+}
+
+#addbutton:hover{
+    background-color: darkgreen;
 }
 
 #artistgifs{

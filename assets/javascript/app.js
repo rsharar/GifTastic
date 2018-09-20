@@ -34,8 +34,8 @@ var artists = ['kendrick lamar','tom petty','prince','tupac','bob marley', 'luke
 // global variable selector for artistImage
 var artistImage;
 
-// global variable for imageURL from GIPHY
-var imageURL;
+// global variable for gifURL from GIPHY
+var gifURL;
 
 // global variable newDiv
 var newDiv;
@@ -69,8 +69,8 @@ function createNewButton(){
         var newBtn = $("<button class = 'artists' type = 'button' value ='" + userInput +"'>" + userInput + "</button>")
 
         // append new button to div id = 'artistbuttons'
-        $("#artistbuttons").append(newBtn)   
-        
+        $("#artistbuttons").append(newBtn)  
+
         // clear user-input field in form
         $("#user-input").val("");
 
@@ -86,7 +86,7 @@ function generateGIFs(){
     // empty the current artistgifs
     $("#artistgifs").empty();
     
-    // ---------------- NEED TO CHANGE THIS.VALUE TO PULL VALUE FROM ARRAY -------------//
+    // ---------------- IDEALL CHANGE THIS.VALUE TO PULL VALUE FROM ARRAY -------------//
     // Storing our giphy API URL for the name of the artist
     var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ encodeURIComponent([this.value])
         
@@ -99,7 +99,7 @@ function generateGIFs(){
         .then(function(response) {
             for (var i = 0;i < response.data.length; i++){
                 // Saving the animated gif in variable 
-                var imageURL = response.data[i].images.fixed_height_small.url;
+                var gifURL = response.data[i].images.fixed_height_small.url;
 
                 // Saving the still image in variable
                 var stillURL = response.data[i].images.fixed_height_small_still.url;
@@ -117,15 +117,11 @@ function generateGIFs(){
                 p.text("Rating: " + response.data[i].rating);
                 artistImage.prepend(p);
 
-
-                
-                // Setting the catImage src attribute to imageUrl
-                artistImage.attr("src", imageURL);
+                // Setting the artistImage src attribute to gifURL
+                artistImage.attr("src", gifURL);
                 artistImage.attr("alt", "artist image");
                 artistImage.attr("data-still",stillURL);
-                artistImage.attr("data-animate",imageURL);
-
-
+                artistImage.attr("data-animate",gifURL);
 
                 gifDiv.append(p);
                 gifDiv.append(artistImage).addClass('gif');
@@ -163,7 +159,6 @@ function animateGIFs(){
 
 
 // ------------------------ EVENT LISTENERS -------------------------//
-
 $(document).ready(function(){
     initialButtons();
     createNewButton();
