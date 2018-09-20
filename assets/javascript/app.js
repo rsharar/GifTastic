@@ -155,10 +155,10 @@ function generateGIFs(){
         .then(function(response) {
             for (var i = 0;i < response.data.length; i++){
                 // Saving the animated gif in variable 
-                var gifURL = response.data[i].images.fixed_height_small.url;
+                var gifURL = response.data[i].images.fixed_height.url;
 
                 // Saving the still image in variable
-                var stillURL = response.data[i].images.fixed_height_small_still.url;
+                var stillURL = response.data[i].images.fixed_height.url;
 
                 // Creating a div to hold the image and rating divs
                 var gifDiv = $("<div>")
