@@ -1,3 +1,7 @@
+.main-box{
+    border: 2px solid black;
+}
+
 .artists{
     height: 30px;
     background-color: darkblue;
@@ -24,7 +28,14 @@
     color: white;
 }
 
-
 #artistgifs{
     position: absolute;
+}
+
+#form{
+    text-align: center;
+}
+
+.row {
+    text-align: center;
 }
