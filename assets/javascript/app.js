@@ -40,6 +40,9 @@ var gifURL;
 // global variable newDiv
 var newDiv;
 
+//global newBtn variable
+var newBtn;
+
 // --------------------------- FUNCTIONS ----------------------------//
 function initialButtons(){
     // for any value in initialButtons
@@ -66,13 +69,66 @@ function createNewButton(){
         console.log(artists);
 
         // generate new button    
-        var newBtn = $("<button class = 'artists' type = 'button' value ='" + userInput +"'>" + userInput + "</button>")
+        newBtn = $("<button class = 'artists' type = 'button' value ='" + userInput +"'>" + userInput + "</button>")
 
         // append new button to div id = 'artistbuttons'
         $("#artistbuttons").append(newBtn)  
 
         // clear user-input field in form
         $("#user-input").val("");
+
+// on click of any artist button...
+$(".artists").on('click',function(){
+    console.log('test');
+// empty the current artistgifs
+$("#artistgifs").empty();
+
+// ---------------- IDEALL CHANGE THIS.VALUE TO PULL VALUE FROM ARRAY -------------//
+// Storing our giphy API URL for the name of the artist
+var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ encodeURIComponent([this.value])
+    
+$.ajax({
+    url: queryURL,
+    method: "GET"
+})
+
+// After the data from the AJAX request comes back
+    .then(function(response) {
+        for (var i = 0;i < response.data.length; i++){
+            // Saving the animated gif in variable 
+            var gifURL = response.data[i].images.fixed_height_small.url;
+
+            // Saving the still image in variable
+            var stillURL = response.data[i].images.fixed_height_small_still.url;
+
+            // Creating a div to hold the image and rating divs
+            var gifDiv = $("<div>")
+            
+            // Creating and storing an image tag
+            var artistImage = $("<img>");
+
+            // Creating and storing a p tag to hold the rating
+            var p = $("<p>");
+
+            // Storing the rating from the GIPHY API in a variable
+            p.text("Rating: " + response.data[i].rating);
+            artistImage.prepend(p);
+
+            // Setting the artistImage src attribute to gifURL
+            artistImage.attr("src", gifURL);
+            artistImage.attr("alt", "artist image");
+            artistImage.attr("data-still",stillURL);
+            artistImage.attr("data-animate",gifURL);
+
+            gifDiv.append(p);
+            gifDiv.append(artistImage).addClass('gif');
+
+            // Prepending the artistImage to the images div
+            $("#artistgifs").prepend(gifDiv);
+        }
+        animateGIFs();
+    });
+})
 
     })
 }
@@ -82,7 +138,7 @@ function createNewButton(){
 function generateGIFs(){
     // on click of any artist button...
     $(".artists").on('click',function(){
-
+        console.log('test');
     // empty the current artistgifs
     $("#artistgifs").empty();
     
