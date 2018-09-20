@@ -1,8 +1,16 @@
 .main-box{
-    border: 2px solid black;
+    /* border: 2px solid black; */
     margin-bottom: 20px;
 }
 
+#page-title {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 48px;
+}
+#directions{
+    font-size: 24px;
+    font-style: italic;
+}
 .artists{
     height: 30px;
     background-color: darkblue;
@@ -13,6 +21,8 @@
     margin-top: 10px;
     border-radius: 4px;
 }
+
+
 
 .artists:hover{
     background-color: darkgreen;
@@ -47,3 +57,4 @@
 .row {
     text-align: center;
 }
+
