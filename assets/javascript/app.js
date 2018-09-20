@@ -50,7 +50,7 @@ function initialButtons(){
         newDiv = $("<button class = 'artists' type = 'button' value ='" + artists[i] + "'>" + artists[i] + "</button>")
 
         //generate a button
-        $("#artistbuttons").prepend(newDiv).addClass('artistbtn')
+        $("#artistbuttons").prepend(newDiv)
     }
 }
 
@@ -71,7 +71,7 @@ function createNewButton(){
 
         // generate new button    
         // append new button to div id = 'artistbuttons'
-        $("#artistbuttons").append(newBtn).addClass('artists','artistbtn')        
+        $("#artistbuttons").append(newBtn)        
     })
 }
     
@@ -83,9 +83,10 @@ function generateGIFs(){
 
     // empty the current artistgifs
     $("#artistgifs").empty();
-
-    // Storing our giphy API URL for a random (currently set to 'tupac')
-    var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ encodeURIComponent(this.value)
+    
+    // ---------------- NEED TO CHANGE THIS.VALUE TO PULL VALUE FROM ARRAY -------------//
+    // Storing our giphy API URL for the name of the artist
+    var queryURL = "https://api.giphy.com/v1/gifs/search?limit=10&api_key=dc6zaTOxFJmzC&q="+ encodeURIComponent([this.value])
         
     $.ajax({
         url: queryURL,
