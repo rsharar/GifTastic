@@ -29,7 +29,7 @@ var developerKey = 'U3BtmZzPNZDs1sxjc8CNPcTKD74evZQV'
 var userInput;
 
 // array to hold initial sarch terms to create buttons upon init
-var artists = ['kendrick lamar','tom petty','prince','tupac','bob marley'];
+var artists = ['kendrick lamar','tom petty','prince','tupac','bob marley', 'luke bryan','nelly','the beatles','red hot chili peppers','taylor swift','anderson paak','van morrison'];
  
 // global variable selector for artistImage
 var artistImage;
@@ -58,7 +58,6 @@ function initialButtons(){
 function createNewButton(){
     // on click of 'submit' button (id = 'addbutton')
     $("#addbutton").on('click', function(){
-
         // get val of userInput from form to store in variable
         userInput = $("#user-input").val();
 
@@ -66,12 +65,13 @@ function createNewButton(){
         artists.push(userInput);
         console.log(artists);
 
-        // store val of userInput in variable to populate newBtn
-        var newBtn = $("<button class = 'artists' type = 'button'>" + userInput + "</button>")
-
         // generate new button    
+        var newBtn = $("<button class = 'artists' type = 'button' value ='" + userInput +"'>" + userInput + "</button>")
+
         // append new button to div id = 'artistbuttons'
-        $("#artistbuttons").append(newBtn)        
+        $("#artistbuttons").append(newBtn)   
+        $("#user-input").val("");
+
     })
 }
     
@@ -96,7 +96,6 @@ function generateGIFs(){
     // After the data from the AJAX request comes back
         .then(function(response) {
             for (var i = 0;i < response.data.length; i++){
-                console.log(response);
                 // Saving the animated gif in variable 
                 var imageURL = response.data[i].images.fixed_height_small.url;
 
@@ -140,7 +139,6 @@ function generateGIFs(){
 // function to toggle state between animate/still on click of GIF div 
 function animateGIFs(){
     $("img").on("click", function(){
-        console.log(this);
     var state = $(this).attr("data-state");
       // If the clicked image's state is still, 
       if (state === "still") {
