@@ -1,22 +1,3 @@
-// --------------------------- PSEUDO CODE ----------------------------//
-
-// function populateGIFs{
-// click on a button
-// make AJAX call to GIHPY API using button name
-// populate 10 random results from GIPHY API, including image and rating
-//}
-
-
-// function animate(){
-    // on click of any gif
-    // if gif is clicked, change state to 'animate'
-    // if gif is clicked again, change state to 'still'
-//}
-
-
-
-
-
 // --------------------------- VARIABLES ----------------------------//
 
 // global variable for name of each button
