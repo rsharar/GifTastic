@@ -42,6 +42,7 @@ function initialButtons(){
 function createNewButton(){
     // on click of 'submit' button (id = 'addbutton')
     $("#addbutton").on('click', function(){
+        
         // get val of userInput from form to store in variable
         userInput = $("#user-input").val();
 
